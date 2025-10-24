@@ -1,0 +1,71 @@
+version: '3.5'
+services:
+  flyway:
+    image: flyway/flyway:9.9.0
+    command: -url=jdbc:postgresql://postgres:5432/postgres -user=postgres -password=postgres migrate
+    volumes:
+      - ./db/migration:/flyway/sql
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - backend
+
+  postgres:
+    domainname: postgres
+    image: postgres:18
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    healthcheck:
+      test: ["CMD", "pg_isready", "-q", "-U", "postgres"]
+      interval: 5s
+      timeout: 1s
+      retries: 2
+    networks:
+      - backend
+      - frontend
+
+  server:
+    build: ./server
+    ports:
+      - "80:80"
+    networks:
+      - backend
+      - frontend
+
+  frontend-dev:
+    build:
+      context: ./frontend
+      dockerfile: ./Dockerfile.dev
+    ports:
+      - "5173:5173"
+    develop:
+      watch:
+        - path: ./frontend/src
+          target: /app/src
+          action: sync
+        - path: ./frontend/package.json
+          target: /app/package.json
+          action: restart
+        - path: ./frontend/vite.config.js
+          target: /app/vite.config.js
+          action: restart
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: ./Dockerfile
+    ports:
+      - 5173:5173
+    networks:
+      - frontend
+
+networks:
+  backend:
+    name: backend
+  frontend:
+    name: frontend
