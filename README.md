@@ -18,8 +18,8 @@ docker compose watch frontend server postgres flyway
 ```
 
 # Todo:
-- [ ] All components working independently locally, dockerised
-- [ ] Components talking to each other on localhost/docker networks
+- [x] All components working independently locally, dockerised
+- [x] Components talking to each other on localhost/docker networks
 - [ ] Set up an actual display for the frontend of the stored shaders
 - [ ] Make the monarco editor UI a bit less hacky, more modern idiomatic Vue
 - [ ] Add unit tests for server and frontend components
