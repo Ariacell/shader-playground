@@ -21,6 +21,7 @@ docker compose watch frontend server postgres flyway
 - [ ] All components working independently locally, dockerised
 - [ ] Components talking to each other on localhost/docker networks
 - [ ] Set up an actual display for the frontend of the stored shaders
+- [ ] Make the monarco editor UI a bit less hacky, more modern idiomatic Vue
 - [ ] Properly finish setting up non-root user access to postgres for the apache server
 - [ ] Set up proper env file and config injection for the various components
 - [ ] Decide how I'd want to deploy it - learn pulumi/try deploying outside AWS for more learning? Could just do ecs to stick with what I know
