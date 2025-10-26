@@ -37,6 +37,21 @@ services:
       - backend
       - frontend
 
+  server-dev:
+    build: ./server
+    ports:
+      - "80:80"
+    networks:
+      - backend
+      - frontend
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    develop:
+      watch:
+        - action: rebuild
+          path: ./server/src
+          target: /var/www/html
+
   frontend-dev:
     build:
       context: ./frontend

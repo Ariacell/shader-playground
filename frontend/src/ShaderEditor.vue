@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import Shaderlist from './Shaderlist.vue'
+import Shaderlist from './ShaderList/ShaderList.vue'
 import * as monaco from 'monaco-editor'
 
 const shaderCode = ref(`#version 300 es
@@ -15,7 +15,7 @@ void main() {
 }`)
 
 const canvas = ref<HTMLCanvasElement | null>(null)
-let editor = null
+let editor: any = null
 let gl: WebGL2RenderingContext | null = null
 let startTime = performance.now()
 
@@ -108,6 +108,7 @@ function draw(time: number) {
 
   requestAnimationFrame(draw)
 }
+
 </script>
 
 <style scoped>

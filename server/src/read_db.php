@@ -1,20 +1,31 @@
 <?php
-    header("Access-Control-Allow-Origin: *");
-    $dbhost = 'postgres';
-    $dbname='postgres';
-    $dbuser = 'postgres';
-    $dbpass = 'postgres';
 
-    $dbconn = pg_connect("host=$dbhost dbname=$dbname user=$dbuser password=$dbpass")
-        or die('Could not connect: ' . pg_last_error());
+header('Content-Type: application/json');
+// TODO: Make CORS only apply in local dev
+header("Access-Control-Allow-Origin: *");
 
-    $query = 'SELECT * FROM shaders.shader_entries';
-    $result = pg_query($query) or die('Error message: ' . pg_last_error());
+require 'vendor/autoload.php';
 
-    while ($row = pg_fetch_row($result)) {
-        var_dump($row);
-    }
+use Dotenv\Dotenv;
+$dotenv = Dotenv::createImmutable(__DIR__);
+$dotenv->load();
 
-    pg_free_result($result);
-    pg_close($dbconn);
+$dbhost = 'postgres';
+$dbname='postgres';
+$dbuser = 'shader_user';
+$dbpass = $_ENV['SHADER_DB_PASSWORD'];
+
+$dbconn = pg_connect("host=$dbhost dbname=$dbname user=$dbuser password=$dbpass")
+    or die('Could not connect: ' . pg_last_error());
+
+$query = 'SELECT * FROM shaders.shader_entries';
+$result = pg_query($dbconn, $query) or die('Error message: ' . pg_last_error());
+
+$arr = pg_fetch_all($result);
+
+pg_free_result($result);
+pg_close($dbconn);
+
+echo json_encode($arr)
+
 ?>

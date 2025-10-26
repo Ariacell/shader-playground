@@ -7,9 +7,9 @@ The architecture is:
 Vue with Vite frontend -> php apache server -> postgresql db
 
 # Build and run:
-Spinning up the stack in dev mode (enables hot reload of the frontend):
+Spinning up the stack in dev mode (enables hot reload of the frontend/server):
 ```sh
-docker compose watch frontend-dev server postgres flyway
+docker compose watch frontend-dev server-dev postgres flyway
 ```
 
 Release version is as simple as just swapping off the hot reload vue image

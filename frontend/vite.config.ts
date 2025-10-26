@@ -15,6 +15,7 @@ export default defineConfig({
     vueDevTools(),
     (monacoEditorPlugin as any).default({})
   ],
+  envDir: "./environments",
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
