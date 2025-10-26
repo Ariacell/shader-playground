@@ -25,5 +25,8 @@ docker compose watch frontend server postgres flyway
 - [ ] Add unit tests for server and frontend components
 - [ ] Properly finish setting up non-root user access to postgres for the apache server
 - [ ] Set up proper env file and config injection for the various components
+    - [x] Frontend
+    - [x] Server
+    - [ ] DB/Infra
 - [ ] Decide how I'd want to deploy it - learn pulumi/try deploying outside AWS for more learning? Could just do ecs to stick with what I know
 - [ ] Actually use it to play with shaders more, because that was kinda the whole point initially
